@@ -4,7 +4,9 @@
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_URLS": "http://localhost:5070"
+        "ASPNETCORE_URLS": "http://localhost:5070",
+        "DAPR_HTTP_PORT": "3570",
+        "DAPR_GRPC_PORT": "53570"
       }
     }
   }

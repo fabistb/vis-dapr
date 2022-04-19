@@ -12,13 +12,12 @@ builder.Services.AddDaprClient();
 builder.Services.AddControllers().AddDapr();
 builder.Services.AddHealthChecks();
 
-builder.Services.AddTransient<IMathActor, MathActor>();
 builder.Services.AddTransient<IActorFactory<IMathActor>, ActorFactory<IMathActor>>();
 
 builder.Services.AddTransient<IPubSubService, PubSubService>();
 builder.Services.AddTransient<IStateStoreService, StateStoreService>();
 builder.Services.AddTransient<ISecretStoreService, SecretStoreService>();
-builder.Services.AddTransient<IServiceInvocationService, IServiceInvocationService>();
+builder.Services.AddTransient<IServiceInvocationService, ServiceInvocationService>();
 builder.Services.AddTransient<IBlobStorageService, BlobStorageService>();
 
 builder.Services.AddActors(options =>
