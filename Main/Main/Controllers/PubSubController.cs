@@ -19,13 +19,14 @@ public class PubSubController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> PublishMessage(object message)
+    public async Task<IActionResult> PublishMessage([FromBody] PubSubMessageDto message)
     {
-        await _pubSubService.PublishMessage(message.ToString());
+        await _pubSubService.PublishMessage(message.Message);
         return Ok();
     }
 
     [Topic("messagebus", "pub-sub-receive")]
+    [HttpPost("pub-sub-receive")]
     public async Task<IActionResult> ReceiveMessage([FromBody] PubSubMessageDto messageDto)
     {
         _logger.LogInformation($"PubSub message: {messageDto.Message}");
