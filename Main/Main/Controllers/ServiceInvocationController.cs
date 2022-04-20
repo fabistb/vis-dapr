@@ -6,7 +6,7 @@ namespace Main.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/{v:apiVersion}/service-invocation")]
+[Route("api/v{v:apiVersion}/service-invocation")]
 public class ServiceInvocationController : ControllerBase
 {
     private readonly IServiceInvocationService _serviceInvocationService;

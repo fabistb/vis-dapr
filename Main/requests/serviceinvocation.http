@@ -1,0 +1,15 @@
+### Service invocation application
+POST http://localhost:5070/api/v1.0/service-invocation
+Content-Type: application/json
+
+{
+  "message": "Service invocation example"
+}
+
+### Service invocation dapr api
+POST http://localhost:3570/v1.0/invoke/second/method/api/v1.0/service-invocation
+Content-Type: application/json
+
+{
+  "message": "Service invocation example dapr api"
+}
