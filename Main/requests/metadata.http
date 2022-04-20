@@ -1,0 +1,11 @@
+### Health check dapr api
+GET http://localhost:3570/v1.0/healthz
+Content-Type: application/json
+
+### Configuration dapr api
+GET http://localhost:5070/dapr/config
+Content-Type: application/json
+
+### Metadata dapr api
+GET http://localhost:3570/v1.0/metadata
+Content-Type: application/json
