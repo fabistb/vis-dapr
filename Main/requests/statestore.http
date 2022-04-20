@@ -1,0 +1,64 @@
+### State store GET application
+GET http://localhost:5070/api/v1.0/state-store
+Content-Type: application/json
+
+### State store GET with eTag application
+GET http://localhost:5070/api/v1.0/state-store/etag
+Content-Type: application/json
+
+### State store DELETE application
+DELETE http://localhost:5070/api/v1.0/state-store
+Content-Type: application/json
+
+### State store PUT application
+PUT http://localhost:5070/api/v1.0/state-store
+Content-Type: application/json
+
+{
+  "firstName": "Max",
+  "lastName": "Mustermann",
+  "age": 30
+}
+
+### State store POST application
+POST http://localhost:5070/api/v1.0/state-store
+Content-Type: application/json
+
+{
+  "eTag": "123456",
+  "stateStore": 
+  {
+    "firstName": "Max",
+    "lastName": "Mustermann",
+    "age": 35
+  }
+}
+
+### State store GET dapr api 
+GET http://localhost:3570/v1.0/state/statestore/123456
+Content-Type: application/json
+
+### State store DELTE dapr api
+DELETE http://localhost:3570/v1.0/state/statestore/123456
+Content-Type: application/json
+
+### State store POST dapr api
+POST http://localhost:3570/v1.0/state/statestore
+Content-Type: application/json
+
+[
+  {
+    "eTag": "1",
+    "key": "123456",
+    "value": {
+      "firstName": "Max",
+      "lastName": "Mustermann",
+      "age": 45
+    }
+  }
+]
+
+
+
+
+

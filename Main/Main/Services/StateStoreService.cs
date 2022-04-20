@@ -29,9 +29,10 @@ public class StateStoreService : IStateStoreService
         await _daprClient.SaveStateAsync("statestore", Key, state);
     }
 
-    public async Task Update(StateStoreEtagDto request)
+    public async Task<bool> Update(StateStoreEtagDto request)
     {
-        await _daprClient.TrySaveStateAsync("statestore", Key, request.StateStore, request.ETag);
+        var response = await _daprClient.TrySaveStateAsync("statestore", Key, request.StateStore, request.ETag);
+        return response;
     }
 
     public async Task Delete()

@@ -10,7 +10,7 @@ public interface IStateStoreService
 
     Task Set(StateStoreDto state);
 
-    Task Update(StateStoreEtagDto request);
+    Task<bool> Update(StateStoreEtagDto request);
 
     Task Delete();
 }

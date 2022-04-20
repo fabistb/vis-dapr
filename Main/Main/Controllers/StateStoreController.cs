@@ -6,7 +6,7 @@ namespace Main.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/{v:apiVersion}/state-store")]
+[Route("api/v{v:apiVersion}/state-store")]
 public class StateStoreController : ControllerBase
 {
     private readonly IStateStoreService _stateStoreService;
@@ -54,7 +54,13 @@ public class StateStoreController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> UpdateState([FromBody] StateStoreEtagDto request)
     {
-        await _stateStoreService.Update(request);
-        return Ok();
+        var result = await _stateStoreService.Update(request);
+        
+        if (result)
+        {
+            return Ok();
+        }
+
+        return new BadRequestObjectResult("eTag mismatch");
     }
 }
