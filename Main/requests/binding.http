@@ -1,0 +1,71 @@
+### POST create blob application
+POST http://localhost:5070/api/v1.0/binding
+Content-Type: application/json
+
+{
+  "fileName": "test.txt",
+  "data": {
+    "test": "test value"
+  }
+}
+
+### GET blob application
+GET http://localhost:5070/api/v1.0/binding/blob?blobName=test.txt
+Content-Type: application/json
+
+### List blob application
+POST http://localhost:5070/api/v1.0/binding/list
+Content-Type: application/json
+
+{
+  "maxResults": "100"
+}
+
+### DELETE blob application
+DELETE http://localhost:5070/api/v1.0/binding/test.txt
+Content-Type: application/json
+
+### POST create blob dapr api
+POST http://localhost:3570/v1.0/bindings/storagebinding
+Content-Type: application/json
+
+{
+  "data": "dapr api test",
+  "metadata": {
+    "blobName": "test-dapr-api.txt"
+  },
+  "operation": "create"
+}
+
+### POST get blob dapr api
+POST http://localhost:3570/v1.0/bindings/storagebinding
+Content-Type: application/json
+
+{
+  "data": "dapr api test",
+  "metadata": {
+    "blobName": "test-dapr-api.txt",
+    "includeMetadata": "true"
+  },
+  "operation": "get"
+}
+
+### POST list dapr api
+POST http://localhost:3570/v1.0/bindings/storagebinding
+Content-Type: application/json
+
+{
+  "operation": "list"
+}
+
+### POST delete blob dapr api
+POST http://localhost:3570/v1.0/bindings/storagebinding
+Content-Type: application/json
+
+{
+  "data": "dapr api test",
+  "metadata": {
+    "blobName": "test-dapr-api.txt"
+  },
+  "operation": "delete"
+}

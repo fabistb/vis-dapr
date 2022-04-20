@@ -19,7 +19,7 @@ public class BlobStorageService : IBlobStorageService
     {
         var bindingRequest = new BindingRequest("storagebinding", "create")
         {
-            Data = Encoding.UTF8.GetBytes(request.Data),
+            Data = JsonSerializer.SerializeToUtf8Bytes(request.Data),
             Metadata = 
             {
                 {"blobName", request.FileName}
@@ -31,7 +31,7 @@ public class BlobStorageService : IBlobStorageService
         return response.BlobUrl;
     }
 
-    public async Task<object> Get(string blobName, bool metadata)
+    public async Task<object?> Get(string blobName, bool metadata)
     {
         var bindingRequest = new BindingRequest("storagebinding", "get")
         {
@@ -39,15 +39,15 @@ public class BlobStorageService : IBlobStorageService
             Metadata =
             {
                 {"blobName", blobName},
-                {"includeMetadata", metadata.ToString()}
+                {"includeMetadata", metadata.ToString().ToLower()}
             }
         };
 
         var blobResponse = await _daprClient.InvokeBindingAsync(bindingRequest);
-        return blobResponse.Data;
+        return await JsonSerializer.DeserializeAsync<object>(blobResponse.Data.AsStream());
     }
 
-    public async Task<object> List(BlobStorageListDto request)
+    public async Task<object?> List(BlobStorageListDto request)
     {
         var bindingRequest = new BindingRequest("storagebinding", "list")
         {
@@ -56,7 +56,7 @@ public class BlobStorageService : IBlobStorageService
 
         var blobResponse = await _daprClient.InvokeBindingAsync(bindingRequest);
 
-        return blobResponse.Data;
+        return await JsonSerializer.DeserializeAsync<object>(blobResponse.Data.AsStream());
     }
 
     public async Task Delete(string blobName)

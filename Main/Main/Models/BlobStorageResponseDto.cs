@@ -1,3 +1,9 @@
+using System.Text.Json.Serialization;
+
 namespace Main.Models;
 
-public record BlobStorageResponseDto(string BlobUrl);
+public class BlobStorageResponseDto
+{
+    [JsonPropertyName("blobURL")]
+    public string BlobUrl { get; set; }
+}

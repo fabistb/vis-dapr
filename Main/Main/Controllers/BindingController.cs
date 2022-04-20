@@ -6,7 +6,7 @@ namespace Main.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/{v:apiVersion}/binding")]
+[Route("api/v{v:apiVersion}/binding")]
 public class BindingController : ControllerBase
 {
     private readonly IBlobStorageService _blobStorageService;
@@ -32,7 +32,7 @@ public class BindingController : ControllerBase
         return new OkObjectResult(result);
     }
 
-    [HttpGet("list")]
+    [HttpPost("list")]
     public async Task<IActionResult> ListBlobs([FromBody] BlobStorageListDto request)
     {
         var result = await _blobStorageService.List(request);

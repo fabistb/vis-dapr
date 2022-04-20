@@ -7,8 +7,8 @@ spec:
   version: v1
   metadata:
     - name: storageAccount
-      value: <account>
+      value: [Account Name]
     - name: storageAccessKey
-      value: <key>
+      value: [Account key]
     - name: container
       value: dapr-storage-binding
