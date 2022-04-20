@@ -39,7 +39,7 @@ public class MathActor : Actor, IMathActor, IRemindable
             throw new Exception("no actor state present");
         }
 
-        actorState.Value.CurrentValue = actorState.Value.CurrentValue + value;
+        actorState.Value.CurrentValue += value;
         actorState.Value.LastOperation = "addition";
 
         return actorState.Value.CurrentValue;
@@ -53,10 +53,15 @@ public class MathActor : Actor, IMathActor, IRemindable
             throw new Exception("no actor state present");
         }
 
-        actorState.Value.CurrentValue = actorState.Value.CurrentValue - value;
+        actorState.Value.CurrentValue -= value;
         actorState.Value.LastOperation = "substraction";
 
         return actorState.Value.CurrentValue;
+    }
+
+    public async Task<MathActorState> Get()
+    {
+        return await StateManager.GetStateAsync<MathActorState>("statestore");
     }
 
     public async Task ReceiveReminderAsync(string reminderName, byte[] state, TimeSpan dueTime, TimeSpan period)

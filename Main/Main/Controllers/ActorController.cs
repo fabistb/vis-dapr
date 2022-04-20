@@ -7,7 +7,7 @@ namespace Main.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/{v:apiVersion}/actor")]
+[Route("api/v{v:apiVersion}/actor")]
 public class ActorController : ControllerBase
 {
     private readonly IActorFactory<IMathActor> _mathActorFactory;
@@ -42,6 +42,15 @@ public class ActorController : ControllerBase
     {
         var actor = _mathActorFactory.CreateActor(ActorId);
         var result = await actor.Substraction(request.Value);
+
+        return new OkObjectResult(result);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> ActorState()
+    {
+        var actor = _mathActorFactory.CreateActor(ActorId);
+        var result = await actor.Get();
 
         return new OkObjectResult(result);
     }

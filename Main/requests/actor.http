@@ -1,0 +1,27 @@
+### Set actor application
+POST http://localhost:5070/api/v1.0/actor/set
+Content-Type: application/json
+
+{
+  "currentValue": 1
+}
+
+### Addition actor application
+POST http://localhost:5070/api/v1.0/actor/addition
+Content-Type: application/json
+
+{
+  "value": 5
+}
+
+### Subsctraction actor application
+POST http://localhost:5070/api/v1.0/actor/subtraction
+Content-Type: application/json
+
+{
+  "value": 2
+}
+
+### GET Actor state application
+GET http://localhost:5070/api/v1.0/actor
+Content-Type: application/json

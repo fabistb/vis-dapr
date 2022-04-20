@@ -10,4 +10,6 @@ public interface IMathActor : IActor
     Task<int> Addition(int value);
 
     Task<int> Substraction(int value);
+
+    Task<MathActorState> Get();
 }
