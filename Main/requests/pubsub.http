@@ -1,4 +1,4 @@
-### PubSub using the application
+### PubSub application
 POST http://localhost:5070/api/v1.0/pub-sub
 Content-Type: application/json
 
@@ -6,7 +6,7 @@ Content-Type: application/json
   "message": "This is a application test"
 }
 
-### PubSub using dapr api
+### PubSub dapr api
 POST http://localhost:3570/v1.0/publish/messagebus/pub-sub-receive
 Content-Type: application/json
 
