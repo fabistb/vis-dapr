@@ -1,0 +1,3 @@
+### GET Configuration
+GET http://localhost:5070/api/v1.0/configuration
+Content-Type: application/json
