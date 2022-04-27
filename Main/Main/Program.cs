@@ -19,6 +19,7 @@ builder.Services.AddTransient<IStateStoreService, StateStoreService>();
 builder.Services.AddTransient<ISecretStoreService, SecretStoreService>();
 builder.Services.AddTransient<IServiceInvocationService, ServiceInvocationService>();
 builder.Services.AddTransient<IBlobStorageService, BlobStorageService>();
+builder.Services.AddTransient<IConfigurationService, ConfigurationService>();
 
 builder.Services.AddActors(options =>
 {
