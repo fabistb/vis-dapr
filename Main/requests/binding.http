@@ -1,5 +1,5 @@
 ### POST create blob application
-POST http://localhost:5070/api/v1.0/binding
+POST http://localhost:5070/api/v1.0/binding/blob
 Content-Type: application/json
 
 {
@@ -68,4 +68,23 @@ Content-Type: application/json
     "blobName": "test-dapr-api.txt"
   },
   "operation": "delete"
+}
+
+### POST send service bus message application
+POST http://localhost:5070/api/v1.0/binding/send-message
+Content-Type: application/json
+
+{
+ "message": "servicebus queue test message"
+}
+
+### POST send service bus message dapr binding
+POST http://localhost:3570/v1.0/bindings/servicebusqueue
+Content-Type: application/json
+
+{
+  "data": {
+    "message": "service bus queue test message dapr api"
+  },
+  "operation": "create"
 }
