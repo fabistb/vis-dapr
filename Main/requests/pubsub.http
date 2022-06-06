@@ -1,9 +1,27 @@
 ### PubSub application
-POST http://localhost:5070/api/v1.0/pub-sub
+POST http://localhost:5070/api/v1.0/pub-sub/pub-sub-send
 Content-Type: application/json
 
 {
   "message": "This is a application test"
+}
+
+### PubSub application filter version 1
+POST http://localhost:5070/api/v1.0/pub-sub/pub-sub-filter
+Content-Type: application/json
+
+{
+  "version": "1",
+  "message": "version 1 processed"
+}
+
+### PubSub application filter version 2
+POST http://localhost:5070/api/v1.0/pub-sub/pub-sub-filter
+Content-Type: application/json
+
+{
+  "version": "2",
+  "message": "version 2 processed"
 }
 
 ### PubSub dapr api
@@ -12,4 +30,22 @@ Content-Type: application/json
 
 {
   "message": "This is a dapr api test"
+}
+
+### PubSub filter version 1 dapr api
+POST http://localhost:3570/v1.0/publish/messagebus/pub-sub-filter
+Content-Type: application/json
+
+{
+  "version": "1",
+  "message": "version 1 processed"
+}
+
+### PubSub filter version 2 dapr api
+POST http://localhost:3570/v1.0/publish/messagebus/pub-sub-filter
+Content-Type: application/json
+
+{
+  "version": "2",
+  "message": "version 2 processed"
 }
