@@ -12,9 +12,9 @@ public class PubSubService : IPubSubService
         _daprClient = daprClient;
     }
     
-    public async Task PublishMessage(string message)
+    public async Task PublishMessage(string topic, string message, string? version = null)
     {
-        var messageDto = new PubSubMessageDto(message);
-        await _daprClient.PublishEventAsync("messagebus", "pub-sub-receive", messageDto);
+        var messageDto = new PubSubMessageDto(version, message);
+        await _daprClient.PublishEventAsync("messagebus", topic, messageDto);
     }
 }
