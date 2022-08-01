@@ -6,7 +6,7 @@ namespace Main.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/v{v:apiVersion}/configuration")]
+[Route("api/v{v:apiVersion}/[controller]")]
 public class LockController : ControllerBase
 {
     private readonly ILockService _lockService;
@@ -16,7 +16,7 @@ public class LockController : ControllerBase
         _lockService = lockService;
     }
 
-    [HttpPost]
+    [HttpPost("lock")]
     public async Task<IActionResult> LockResource()
     {
         await _lockService.LockResource();
@@ -24,7 +24,7 @@ public class LockController : ControllerBase
         return Ok();
     }
 
-    [HttpPost]
+    [HttpPost("unlock")]
     public async Task<IActionResult> UnlockResource()
     {
         await _lockService.UnlockResource();
