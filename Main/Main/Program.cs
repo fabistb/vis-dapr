@@ -21,6 +21,7 @@ builder.Services.AddTransient<IServiceInvocationService, ServiceInvocationServic
 builder.Services.AddTransient<IBlobStorageService, BlobStorageService>();
 builder.Services.AddTransient<IServiceBusQueueService, ServiceBusQueueService>();
 builder.Services.AddTransient<IConfigurationService, ConfigurationService>();
+builder.Services.AddTransient<ILockService, LockService>();
 
 builder.Services.AddActors(options =>
 {
