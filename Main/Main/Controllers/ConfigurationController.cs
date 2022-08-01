@@ -6,7 +6,7 @@ namespace Main.Controllers;
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{v:apiVersion}/configuration")]
-public class ConfigurationController
+public class ConfigurationController : ControllerBase
 {
     private readonly IConfigurationService _configurationService;
 
