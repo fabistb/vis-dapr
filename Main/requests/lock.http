@@ -1,0 +1,26 @@
+### Lock Resource application
+POST http://localhost:5070/api/v1.0/Lock/lock
+Content-Type: application/json
+
+### Unlock Resource application
+POST http://localhost:5070/api/v1.0/Lock/unlock
+Content-Type: application/json
+
+### Lock Resouce dapr
+POST http://localhost:3570/v1.0-alpha1/lock/lockstore
+Content-Type: application/json
+
+{
+  "resourceId": "resource_1",
+  "lockOwner": "main",
+  "expiryInSeconds": 120
+}
+
+### Unlock Resource dapr
+POST http://localhost:3570/v1.0-alpha1/unlock/lockstore
+Content-Type: application/json
+
+{
+  "resourceId": "resource_1",
+  "lockOwner": "main"
+}
