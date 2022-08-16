@@ -1,16 +1,3 @@
-### Create lock ressource dapr api
-POST http://localhost:3570/v1.0/state/statestore
-Content-Type: application/json
-
-[
-  {
-    "key": "resource_1",
-    "value": {
-      "lock": "this is a lock"
-    }
-  }
-]
-
 ### Lock Resource application
 POST http://localhost:5070/api/v1.0/Lock/lock
 Content-Type: application/json
@@ -20,7 +7,7 @@ POST http://localhost:5070/api/v1.0/Lock/unlock
 Content-Type: application/json
 
 ### Lock Resouce dapr
-POST http://localhost:5070/v1.0-alpha1/lock/lockstore
+POST http://localhost:3570/v1.0-alpha1/lock/lockstore
 Content-Type: application/json
 
 {
@@ -30,7 +17,7 @@ Content-Type: application/json
 }
 
 ### Unlock Resource dapr
-POST http://localhost:5070/v1.0-alpha1/unlock/lockstore
+POST http://localhost:3570/v1.0-alpha1/unlock/lockstore
 Content-Type: application/json
 
 {
