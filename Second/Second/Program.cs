@@ -1,12 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
+using Second.Actors;
+using Second.Infastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddTransient<IActorFactory<IResiliencyActor>, ActorFactory<IResiliencyActor>>();
+
 builder.Services.AddHttpClient();
 builder.Services.AddDaprClient();
 builder.Services.AddControllers().AddDapr();
 builder.Services.AddHealthChecks();
+
+builder.Services.AddActors(options =>
+{
+    options.Actors.RegisterActor<ResiliencyActor>();
+});
 
 builder.Services.AddApiVersioning(v =>
 {
@@ -28,6 +37,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapHealthChecks("/health");
     endpoints.MapControllers();
+    endpoints.MapActorsHandlers();
 });
 
 app.Run();
