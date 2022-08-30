@@ -22,6 +22,7 @@ builder.Services.AddTransient<IBlobStorageService, BlobStorageService>();
 builder.Services.AddTransient<IServiceBusQueueService, ServiceBusQueueService>();
 builder.Services.AddTransient<IConfigurationService, ConfigurationService>();
 builder.Services.AddTransient<ILockService, LockService>();
+builder.Services.AddTransient<IResiliencyService, ResiliencyService>();
 
 builder.Services.AddActors(options =>
 {
