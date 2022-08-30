@@ -1,0 +1,21 @@
+apiVersion: dapr.io/v1alpha1
+kind: Resiliency
+metadata:
+  name: example-resiliency
+spec:
+  # policies is where timeouts, retries and circuit breaker policies are defined. 
+  # each is given a name so they can be referred to from the targets section in the resiliency spec.
+  policies:
+    # retries are named templates for retry configurations and are instantiated for life of the operation.
+    retries:
+      retryForever:
+        policy: exponential
+        maxInterval: 30s
+        maxRetries: -1 # retry indefinitely
+
+  # targets are what named policies are applied to. Dapr supports 3 target types - apps, components and actors
+  targets:
+    apps:
+      second:
+        retry: retryForever
+

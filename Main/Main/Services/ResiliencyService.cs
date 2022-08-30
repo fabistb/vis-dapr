@@ -4,7 +4,7 @@ namespace Main.Services;
 
 public class ResiliencyService : IResiliencyService
 {
-    private const int NumbCalls = 100;
+    private const int NumbCalls = 300;
     
     private readonly DaprClient _daprClient;
     private readonly ILogger<ResiliencyService> _logger;
@@ -19,10 +19,12 @@ public class ResiliencyService : IResiliencyService
     
     public async Task ExhaustResource()
     {
-        var httpRequest = _daprClient.CreateInvokeMethodRequest(HttpMethod.Post, "second", "api/v1.0/resiliency");
-
         for (var i = 0; i < NumbCalls; i++)
         {
+            var httpRequest = _daprClient.CreateInvokeMethodRequest(HttpMethod.Post, "second", "api/v1.0/resiliency", new
+            {
+                Guid = Guid.NewGuid().ToString(),
+            });
             var response = await _daprClient.InvokeMethodWithResponseAsync(httpRequest);
 
             if (!response.IsSuccessStatusCode)
