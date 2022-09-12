@@ -49,3 +49,12 @@ Content-Type: application/json
   "version": "2",
   "message": "version 2 processed"
 }
+
+### PubSub daedletter dapr api
+POST http://localhost:3570/v1.0/publish/messagebus/active-messages
+Content-Type: application/json
+
+{
+  "version": "2",
+  "message": "deadlettered message"
+}

@@ -55,4 +55,18 @@ public class PubSubController : ControllerBase
         _logger.LogInformation($"PubSub filter message: {messageDto.Message}");
         return Ok();
     }
+
+    [HttpPost("active-message-subscription")]
+    public async Task<IActionResult> ReceiveActiveMessage([FromBody] PubSubMessageDto messageDto)
+    {
+        throw new Exception("invalid message");
+    }
+
+    [HttpPost("deadletter-message-subscription")]
+    public async Task<IActionResult> ReceiveDeadletterMessage([FromBody] PubSubMessageDto messageDto)
+    {
+        _logger.LogInformation($"PubSub deadletter message received: {messageDto.Message}");
+
+        return Ok();
+    }
 }
