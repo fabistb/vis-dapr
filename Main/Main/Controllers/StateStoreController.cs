@@ -63,4 +63,12 @@ public class StateStoreController : ControllerBase
 
         return new BadRequestObjectResult("eTag mismatch");
     }
+
+    [HttpGet("filter-by-name")]
+    public async Task<IActionResult> FilterByName()
+    {
+        var result = await _stateStoreService.FilterByFirstName();
+
+        return new OkObjectResult(result);
+    }
 }

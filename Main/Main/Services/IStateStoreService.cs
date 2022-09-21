@@ -13,4 +13,6 @@ public interface IStateStoreService
     Task<bool> Update(StateStoreEtagDto request);
 
     Task Delete();
+
+    Task<List<QueryStoreDto>> FilterByFirstName();
 }

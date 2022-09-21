@@ -59,6 +59,42 @@ Content-Type: application/json
 ]
 
 
+### Filter state GET by name application
+GET http://localhost:5070/api/v1.0/state-store/filter-by-name
+Content-Type: application/json
+
+### Query State Store POST dapr api
+POST http://localhost:3570/v1.0/state/querystore
+Content-Type: application/json
+
+[
+  {
+    "key": "1",
+    "value": {
+      "firstName": "Max",
+      "lastName": "Mustermann",
+      "age": 45
+    }
+  },
+  {
+    "key": "2",
+    "value": {
+      "firstName": "Peter",
+      "lastName": "Pan",
+      "age": 20
+    }
+  },
+  {
+    "key": "3",
+    "value": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "age": 50
+    }
+  }
+]
+
+
 
 
 

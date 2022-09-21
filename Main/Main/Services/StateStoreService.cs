@@ -39,4 +39,17 @@ public class StateStoreService : IStateStoreService
     {
         await _daprClient.DeleteStateAsync("statestore", Key);
     }
+
+    public async Task<List<QueryStoreDto>> FilterByFirstName()
+    {
+        const string query = "{" +
+                             "\"filter\": {" +
+                             "\"EQ\": { \"firstName\": \"Max\" }" +
+                             "}" +
+                             "}";
+
+        var queryResult = await _daprClient.QueryStateAsync<QueryStoreDto>("querystore", query);
+
+        return queryResult.Results.Select(result => result.Data).ToList();
+    }
 }
