@@ -1,9 +1,0 @@
-apiVersion: dapr.io/v1alpha1
-kind: Subscription
-metadata:
-  name: activemessagesubscription
-spec:
-  topic: active-messages
-  route: /api/v1.0/pub-sub/active-message-subscription
-  pubsubname: messagebus
-  deadLetterTopic: deadletter-messages
