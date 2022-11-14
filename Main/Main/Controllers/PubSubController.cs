@@ -56,12 +56,14 @@ public class PubSubController : ControllerBase
         return Ok();
     }
 
+    [Topic("messagebus", "active-messages", "deadletter-messages", false)]
     [HttpPost("active-message-subscription")]
     public async Task<IActionResult> ReceiveActiveMessage([FromBody] PubSubMessageDto messageDto)
     {
         throw new Exception("invalid message");
     }
 
+    [Topic("messagebus", "deadletter-messages")]
     [HttpPost("deadletter-message-subscription")]
     public async Task<IActionResult> ReceiveDeadletterMessage([FromBody] PubSubMessageDto messageDto)
     {
