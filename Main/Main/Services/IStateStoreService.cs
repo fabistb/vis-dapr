@@ -15,4 +15,8 @@ public interface IStateStoreService
     Task Delete();
 
     Task<List<QueryStoreDto>> FilterByFirstName();
+
+    Task<List<QueryStoreDto>> SortByAge();
+
+    Task<QueryStoreTokenDto> Page();
 }

@@ -59,10 +59,6 @@ Content-Type: application/json
 ]
 
 
-### Filter state GET by name application
-GET http://localhost:5070/api/v1.0/state-store/filter-by-name
-Content-Type: application/json
-
 ### Query State Store POST dapr api
 POST http://localhost:3570/v1.0/state/querystore
 Content-Type: application/json
@@ -94,7 +90,63 @@ Content-Type: application/json
   }
 ]
 
+### Filter state GET by name application
+GET http://localhost:5070/api/v1.0/state-store/filter-by-name
+Content-Type: application/json
 
+### Query State Store filter by name - dapr api
+POST http://localhost:3570/v1.0-alpha1/state/querystore/query?metadata.contentType=application/json
+Content-Type: application/json
+
+{
+  "filter": {
+    "EQ": {
+      "firstName": "Max"
+    }
+  }
+}
+
+### Sort by name application
+GET http://localhost:5070/api/v1.0/state-store/sort-by-age
+Content-Type: application/json
+
+### Query State Store sort by age - dapr api
+POST http://localhost:3570/v1.0-alpha1/state/querystore/query?metadata.contentType=application/json
+Content-Type: application/json
+
+{
+  "sort": [
+    {
+      "key": "age",
+      "order": "DESC"
+    }
+  ]
+}
+
+### Page application
+GET http://localhost:5070/api/v1.0/state-store/page
+Content-Type: application/json
+
+### Query State Store page - dapr api
+POST http://localhost:3570/v1.0-alpha1/state/querystore/query?metadata.contentType=application/json
+Content-Type: application/json
+
+{
+  "page": {
+    "limit": 1
+  }
+}
+
+### Query State Store page token 1 - dapr api
+POST http://localhost:3570/v1.0-alpha1/state/querystore/query?metadata.contentType=application/json
+Content-Type: application/json
+
+{
+  "page": {
+    "limit": 1,
+    "token": "1"
+  }
+}
 
 
 
