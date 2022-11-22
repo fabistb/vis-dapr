@@ -43,7 +43,7 @@ public class StateStoreController : ControllerBase
         await _stateStoreService.Delete();
         return Ok();
     }
-    
+
     [HttpPut]
     public async Task<IActionResult> SetState([FromBody] StateStoreDto request)
     {
@@ -55,12 +55,36 @@ public class StateStoreController : ControllerBase
     public async Task<IActionResult> UpdateState([FromBody] StateStoreEtagDto request)
     {
         var result = await _stateStoreService.Update(request);
-        
+
         if (result)
         {
             return Ok();
         }
 
         return new BadRequestObjectResult("eTag mismatch");
+    }
+
+    [HttpGet("filter-by-name")]
+    public async Task<IActionResult> FilterByName()
+    {
+        var result = await _stateStoreService.FilterByFirstName();
+
+        return new OkObjectResult(result);
+    }
+
+    [HttpGet("sort-by-age")]
+    public async Task<IActionResult> SortByName()
+    {
+        var result = await _stateStoreService.SortByAge();
+
+        return new OkObjectResult(result);
+    }
+
+    [HttpGet("page")]
+    public async Task<IActionResult> Page()
+    {
+        var result = await _stateStoreService.Page();
+
+        return new OkObjectResult(result);
     }
 }
