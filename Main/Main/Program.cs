@@ -36,7 +36,10 @@ builder.Services.AddApiVersioning(v =>
     v.DefaultApiVersion = new ApiVersion(1, 0);
 });
 
-builder.Services.AddDaprSidekick(builder.Configuration);
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDaprSidekick(builder.Configuration);
+}
 
 // Configure the HTTP request pipeline
 var app = builder.Build();
