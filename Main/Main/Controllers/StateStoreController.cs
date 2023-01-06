@@ -1,6 +1,7 @@
 using Main.Models;
 using Main.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Toolkit.HighPerformance.Helpers;
 
 namespace Main.Controllers;
 
@@ -86,5 +87,13 @@ public class StateStoreController : ControllerBase
         var result = await _stateStoreService.Page();
 
         return new OkObjectResult(result);
+    }
+
+    [HttpPost("set-shared-state")]
+    public async Task<IActionResult> SetSharedState([FromBody] StateStoreDto request)
+    {
+        await _stateStoreService.SetSharedState(request);
+
+        return Ok();
     }
 }
