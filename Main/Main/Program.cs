@@ -57,4 +57,6 @@ app.UseEndpoints(endpoints =>
     endpoints.MapActorsHandlers();
 });
 
+app.MapMethods("/servicebusqueue", new[] {"OPTIONS"}, () => "servicebusqueue input binding is available");
+
 app.Run();

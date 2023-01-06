@@ -88,3 +88,6 @@ Content-Type: application/json
   },
   "operation": "create"
 }
+
+### OPTIONS check if application subscribes to servicebusqueue input binding
+OPTIONS http://localhost:5070/servicebusqueue
