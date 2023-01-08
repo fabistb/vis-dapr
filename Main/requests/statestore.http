@@ -58,7 +58,6 @@ Content-Type: application/json
   }
 ]
 
-
 ### Query State Store POST dapr api
 POST http://localhost:3570/v1.0/state/querystore
 Content-Type: application/json
@@ -148,5 +147,27 @@ Content-Type: application/json
   }
 }
 
+### Shared State Store set state - application
+POST http://localhost:5070/api/v1.0/state-store/set-shared-state
+Content-Type: application/json
 
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "age": 45
+}
+
+### Shared State Store set state - dapr api
+POST http://localhost:3570/v1.0/state/sharedstatestore
+
+[
+  {
+    "key": "123456",
+    "value": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "age": 50
+    }
+  }
+]
 
