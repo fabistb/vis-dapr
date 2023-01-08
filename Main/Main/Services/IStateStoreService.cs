@@ -19,4 +19,6 @@ public interface IStateStoreService
     Task<List<QueryStoreDto>> SortByAge();
 
     Task<QueryStoreTokenDto> Page();
+
+    Task SetSharedState(StateStoreDto state);
 }

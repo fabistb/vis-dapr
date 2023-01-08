@@ -1,0 +1,7 @@
+### Shared State GET - application
+GET http://localhost:5071/api/v1.0/state-store/shared-state-store
+Content-Type: application/json
+
+### Shared State GET - dapr api
+GET http://localhost:3570/v1.0/state/sharedstatestore/123456
+Content-Type: application/json

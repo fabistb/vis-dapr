@@ -72,4 +72,9 @@ public class StateStoreService : IStateStoreService
             queryResult.Token,
             queryResult.Results.Select(result => result.Data).ToList());
     }
+
+    public async Task SetSharedState(StateStoreDto state)
+    {
+        await _daprClient.SaveStateAsync("sharedstatestore", Key, state);
+    }
 }
