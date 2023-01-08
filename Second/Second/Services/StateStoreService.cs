@@ -17,5 +17,7 @@ public class StateStoreService : IStateStoreService
     public async Task<StateStoreDto> GetSharedState()
     {
         var result = await _daprClient.GetStateAsync<StateStoreDto>("sharedstatestore", Key);
+
+        return result;
     }
 }
