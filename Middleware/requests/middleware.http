@@ -1,0 +1,6 @@
+POST http://localhost:3572/v1.0/invoke/middleware/method/api/v1.0/middleware
+Content-Type: application/json
+
+{
+  "dapr": "dapr is awesome"
+}
