@@ -1,7 +1,6 @@
 using Main.Models;
 using Main.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Toolkit.HighPerformance.Helpers;
 
 namespace Main.Controllers;
 

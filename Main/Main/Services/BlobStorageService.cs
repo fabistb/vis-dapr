@@ -1,8 +1,7 @@
-using System.Text;
 using System.Text.Json;
+using CommunityToolkit.HighPerformance;
 using Dapr.Client;
 using Main.Models;
-using Microsoft.Toolkit.HighPerformance;
 
 namespace Main.Services;
 
