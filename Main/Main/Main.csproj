@@ -8,9 +8,9 @@
 
     <ItemGroup>
       <PackageReference Include="CommunityToolkit.HighPerformance" Version="8.1.0" />
-      <PackageReference Include="Dapr.Actors.AspNetCore" Version="1.11.0" />
-      <PackageReference Include="Dapr.AspNetCore" Version="1.11.0" />
-      <PackageReference Include="Dapr.Extensions.Configuration" Version="1.11.0" />
+      <PackageReference Include="Dapr.Actors.AspNetCore" Version="1.13.1" />
+      <PackageReference Include="Dapr.AspNetCore" Version="1.13.1" />
+      <PackageReference Include="Dapr.Extensions.Configuration" Version="1.13.1" />
       <PackageReference Include="Man.Dapr.Sidekick.AspNetCore" Version="1.2.1" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
     </ItemGroup>
