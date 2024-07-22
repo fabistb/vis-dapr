@@ -23,6 +23,7 @@ builder.Services.AddTransient<IServiceBusQueueService, ServiceBusQueueService>()
 builder.Services.AddTransient<IConfigurationService, ConfigurationService>();
 builder.Services.AddTransient<ILockService, LockService>();
 builder.Services.AddTransient<IResiliencyService, ResiliencyService>();
+builder.Services.AddTransient<IOutboxPatternService, OutboxPatternService>();
 
 builder.Services.AddActors(options =>
 {
@@ -47,7 +48,7 @@ var app = builder.Build();
 app.UseRouting();
 app.UseHttpsRedirection();
 app.UseAuthorization();
-app.UseCloudEvents();
+//app.UseCloudEvents(); --> Commented out because otherwise will return 415
 
 app.UseEndpoints(endpoints =>
 {
