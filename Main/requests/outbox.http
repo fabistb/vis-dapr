@@ -1,0 +1,31 @@
+### POST Change State Dapr API
+POST http://localhost:3570/v1.0/state/outboxstatestore/transaction?metadata.contentType=application/json
+Content-Type: application/json
+
+{
+  "operations": [
+    {
+      "operation": "upsert",
+      "request": {
+        "key": "person1",
+        "value": {
+          "key": "person1",
+          "firstName": "Max",
+          "lastName": "Mustermann",
+          "age": 35
+        }
+      }
+    }
+  ]
+}
+
+### POST Change State Application
+POST http://localhost:5070/api/v1.0/outbox/change-state
+Content-Type: application/json
+
+{
+  "key": "person1",
+  "firstName": "Max",
+  "lastName": "Mustermann",
+  "age": 40
+}
