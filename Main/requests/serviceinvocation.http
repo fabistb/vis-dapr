@@ -13,3 +13,20 @@ Content-Type: application/json
 {
   "message": "Service invocation example dapr api"
 }
+
+### Call external service application
+POST http://localhost:5070/api/v1.0/service-invocation/external
+Content-Type: application/json
+
+{
+  "message": "Service invocation external example"
+}
+
+
+### Call external service dapr
+POST http://localhost:3570/v1.0/invoke/http://localhost:5071/method/api/v1.0/service-invocation
+Content-Type: application/json
+
+{
+  "message": "Service invocation external example"
+}
