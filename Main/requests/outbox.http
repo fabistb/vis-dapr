@@ -1,5 +1,5 @@
 ### POST Change State Dapr API
-POST http://localhost:3570/v1.0/state/outboxstatestore/transaction?metadata.contentType=application/json
+POST http://localhost:3570/v1.0/state/outboxstatestore/transaction
 Content-Type: application/json
 
 {
@@ -13,7 +13,8 @@ Content-Type: application/json
           "firstName": "Max",
           "lastName": "Mustermann",
           "age": 35
-        }
+        },
+        "contentType": "application/json"
       }
     }
   ]
