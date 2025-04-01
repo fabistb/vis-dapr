@@ -14,9 +14,9 @@ public class ServiceInvocationService : IServiceInvocationService
     
     public async Task Invoke(ServiceInvocationDto request)
     {
-        var httpRequest = _daprClient.CreateInvokeMethodRequest(HttpMethod.Post, "second", "api/v1.0/service-invocation", request);
-        var response = await _daprClient.InvokeMethodWithResponseAsync(httpRequest);
-
+        var daprHttpClient = DaprClient.CreateInvokeHttpClient();
+        var response = await daprHttpClient.PostAsJsonAsync("http://second/api/v1.0/service-invocation", request);
+        
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception("service invocation failed.");
