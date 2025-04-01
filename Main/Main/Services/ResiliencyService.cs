@@ -18,14 +18,12 @@ public class ResiliencyService : IResiliencyService
     }
     
     public async Task ExhaustResource()
-    {
+    { 
+        var daprHttpClient = DaprClient.CreateInvokeHttpClient();
+        
         for (var i = 0; i < NumbCalls; i++)
         {
-            var httpRequest = _daprClient.CreateInvokeMethodRequest(HttpMethod.Post, "second", "api/v1.0/resiliency", new
-            {
-                Guid = Guid.NewGuid().ToString(),
-            });
-            var response = await _daprClient.InvokeMethodWithResponseAsync(httpRequest);
+            var response = await daprHttpClient.PostAsync($"http://second/api/v1.0/resiliency?Guid={Guid.NewGuid()}", null);
 
             if (!response.IsSuccessStatusCode)
             {
