@@ -34,7 +34,7 @@ If the application returns 2xx or 405. While both variants are valid for operati
 [Dapr Docs](https://docs.dapr.io/developing-applications/building-blocks/bindings/bindings-overview/#input-bindings)
 
 # Cryptography
-To ensure that the cryptography api is working, a private RSA key must be created and the `crypto.ymal` component must be updated.
+To ensure that the cryptography api is working, a private RSA key must be created and the `crypto.yaml` component must be updated.
 
 Navigate to the folder where the keys should be created and run the following commands:
 ```bash
