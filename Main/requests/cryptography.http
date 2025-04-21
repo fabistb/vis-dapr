@@ -1,0 +1,15 @@
+### POST Application Encrypt 
+POST http://localhost:5070/api/v1.0/cryptography/encrypt
+Content-Type: application/json
+
+{
+  "secretMessage": "secret text value"
+}
+
+### Post Application Decrypt
+POST http://localhost:5070/api/v1.0/cryptography/decrypt
+Content-Type: application/json
+
+{
+  "secretMessage": "" 
+}
