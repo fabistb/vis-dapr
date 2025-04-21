@@ -1,4 +1,5 @@
 using Dapr.AI.Conversation.Extensions;
+using Dapr.Jobs.Extensions;
 using Main.Actors;
 using Main.Infrastructure;
 using Main.Services;
@@ -26,8 +27,10 @@ builder.Services.AddTransient<ILockService, LockService>();
 builder.Services.AddTransient<IResiliencyService, ResiliencyService>();
 builder.Services.AddTransient<ICryptographyService, CryptographyService>();
 builder.Services.AddTransient<IConversationService, ConversationService>();
+builder.Services.AddTransient<IJobsService, JobsService>();
 
 builder.Services.AddDaprConversationClient();
+builder.Services.AddDaprJobsClient();
 
 builder.Services.AddActors(options =>
 {
@@ -41,13 +44,21 @@ builder.Services.AddApiVersioning(v =>
     v.DefaultApiVersion = new ApiVersion(1, 0);
 });
 
+
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDaprSidekick(builder.Configuration);
 }
 
+
 // Configure the HTTP request pipeline
 var app = builder.Build();
+
+app.MapDaprScheduledJobHandler((string jobName, ReadOnlyMemory<byte> jobPayload, ILogger logger,
+    CancellationToken cancellationToken) =>
+{
+    logger?.LogInformation("Receive trigger invocation for job '{jobName'", jobName);
+});
 
 app.UseRouting();
 app.UseHttpsRedirection();

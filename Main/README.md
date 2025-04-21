@@ -41,3 +41,11 @@ Navigate to the folder where the keys should be created and run the following co
 openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out cryptokey.pem
 openssl rand -out symmetric-key-256 32
 ```
+
+# Jobs
+Dapr Sidekick is currently not able to connect to the dapr-scheduler service.
+To ensure that the Jobs example is still working, comment out Sidekick in the `Program.cs` and then run the following command to start the application.
+
+```bash
+dapr run --app-id main --components-path ./components --config ./configuration.yaml --dapr-http-port 3500 --dapr-grpc-port 53570 --app-port 5070
+```
