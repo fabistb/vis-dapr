@@ -1,0 +1,13 @@
+### Application Schedule Job
+POST http://localhost:5070/api/v1/jobs/schedule
+Content-Type: application/json
+
+{
+  "jobName": "example-job"
+}
+
+### Application Get Job
+GET http://localhost:5070/api/v1/jobs/example-job
+
+### Appication Delete Job
+DELETE http://localhost:5070/api/v1/jobs/example-job
