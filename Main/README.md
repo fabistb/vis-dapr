@@ -32,3 +32,12 @@ In this example the application **main** sets the state while the application **
 Dapr utilizes an _options_ request to determine if an application subscribes to an input binding.
 If the application returns 2xx or 405. While both variants are valid for operations it might be preferable to return 2xx to reduce the amount of failed requests in the logs.
 [Dapr Docs](https://docs.dapr.io/developing-applications/building-blocks/bindings/bindings-overview/#input-bindings)
+
+# Cryptography
+To ensure that the cryptography api is working, a private RSA key must be created and the `crypto.ymal` component must be updated.
+
+Navigate to the folder where the keys should be created and run the following commands:
+```bash
+openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out cryptokey.pem
+openssl rand -out symmetric-key-256 32
+```
