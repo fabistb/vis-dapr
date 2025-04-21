@@ -1,3 +1,4 @@
+using Dapr.AI.Conversation.Extensions;
 using Main.Actors;
 using Main.Infrastructure;
 using Main.Services;
@@ -24,6 +25,9 @@ builder.Services.AddTransient<IConfigurationService, ConfigurationService>();
 builder.Services.AddTransient<ILockService, LockService>();
 builder.Services.AddTransient<IResiliencyService, ResiliencyService>();
 builder.Services.AddTransient<ICryptographyService, CryptographyService>();
+builder.Services.AddTransient<IConversationService, ConversationService>();
+
+builder.Services.AddDaprConversationClient();
 
 builder.Services.AddActors(options =>
 {

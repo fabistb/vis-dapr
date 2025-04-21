@@ -1,0 +1,7 @@
+### Application Conversation API
+POST http://localhost:5070/api/v1.0/conversation/ask-llm
+Content-Type: application/json
+
+{
+  "prompt": "Tell me something funny."
+}
