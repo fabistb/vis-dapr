@@ -23,6 +23,7 @@ builder.Services.AddTransient<IServiceBusQueueService, ServiceBusQueueService>()
 builder.Services.AddTransient<IConfigurationService, ConfigurationService>();
 builder.Services.AddTransient<ILockService, LockService>();
 builder.Services.AddTransient<IResiliencyService, ResiliencyService>();
+builder.Services.AddTransient<ICryptographyService, CryptographyService>();
 
 builder.Services.AddActors(options =>
 {
