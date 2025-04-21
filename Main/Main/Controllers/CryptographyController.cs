@@ -7,7 +7,7 @@ namespace Main.Controllers;
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{v:apiVersion}/cryptography")]
-public class CryptographyController
+public class CryptographyController : ControllerBase
 {
     private readonly ICryptographyService _cryptographyService;
 
