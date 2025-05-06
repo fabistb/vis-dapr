@@ -22,4 +22,11 @@ public class ServiceInvocationController : ControllerBase
         await _serviceInvocationService.Invoke(request);
         return Ok();
     }
+
+    [HttpPost("external")]
+    public async Task<IActionResult> ExternalService([FromBody] ServiceInvocationDto request)
+    {
+        await _serviceInvocationService.InvokeExternal(request);
+        return Ok();
+    }
 }

@@ -1,3 +1,5 @@
+using System.Text;
+using System.Text.Json;
 using Dapr.Client;
 using Main.Models;
 
@@ -20,6 +22,20 @@ public class ServiceInvocationService : IServiceInvocationService
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception("service invocation failed.");
+        }
+    }
+
+    public async Task InvokeExternal(ServiceInvocationDto request)
+    {
+        var orderJson = JsonSerializer.Serialize(request);
+        var content = new StringContent(orderJson, Encoding.UTF8, "application/json");
+        
+        var httpClient = DaprClient.CreateInvokeHttpClient();
+        var response = await httpClient.PostAsJsonAsync("http://localhost:5071/api/v1.0/service-invocation", content);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception("calling external service failed");
         }
     }
 }
