@@ -8,11 +8,11 @@ builder.Services.AddDaprClient();
 builder.Services.AddControllers().AddDapr();
 builder.Services.AddHealthChecks();
 
-builder.Services.AddApiVersioning(v =>
+builder.Services.AddApiVersioning(options =>
 {
-    v.ReportApiVersions = true;
-    v.AssumeDefaultVersionWhenUnspecified = true;
-    v.DefaultApiVersion = new ApiVersion(1, 0);
+    options.ReportApiVersions = true;
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.DefaultApiVersion = new ApiVersion(1, 0);
 });
 
 if (builder.Environment.IsDevelopment())
@@ -23,14 +23,10 @@ if (builder.Environment.IsDevelopment())
 // Configure the HTTP request pipeline.
 var app = builder.Build();
 
-app.UseRouting();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapHealthChecks("/health");
-    endpoints.MapControllers();
-});
+app.MapHealthChecks("/health");
+app.MapControllers();
 
 app.Run();
