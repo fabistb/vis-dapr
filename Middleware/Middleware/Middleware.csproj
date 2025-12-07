@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.0" />
         <PackageReference Include="Dapr.Actors.AspNetCore" Version="1.16.1" />
         <PackageReference Include="Dapr.AspNetCore" Version="1.16.1" />
         <PackageReference Include="Dapr.Extensions.Configuration" Version="1.16.1" />
         <PackageReference Include="Man.Dapr.Sidekick.AspNetCore" Version="1.2.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
     </ItemGroup>
 
 </Project>
