@@ -1,0 +1,49 @@
+### Create Order
+POST http://localhost:5080/api/order
+Content-Type: application/json
+
+{
+  "orderId": "ORD-001",
+  "customerId": "CUST-123",
+  "deliveryAddress": "123 Main St, City, Country",
+  "items": [
+    {
+      "productId": "PROD-001",
+      "productName": "Laptop",
+      "quantity": 2,
+      "unitPrice": 999.99
+    },
+    {
+      "productId": "PROD-002",
+      "productName": "Mouse",
+      "quantity": 3,
+      "unitPrice": 29.99
+    }
+  ]
+}
+
+### Accept Offer
+POST http://localhost:5080/api/order/ORD-001/respond
+Content-Type: application/json
+
+{
+  "orderId": "ORD-001",
+  "isAccepted": true,
+  "reason": ""
+}
+
+### Decline Offer
+POST http://localhost:5080/api/order/ORD-002/respond
+Content-Type: application/json
+
+{
+  "orderId": "ORD-002",
+  "isAccepted": false,
+  "reason": "Price too high"
+}
+
+### Get Workflow Status
+GET http://localhost:5080/api/order/{instanceId}/status
+
+### Terminate Workflow
+POST http://localhost:5080/api/order/{instanceId}/terminate
