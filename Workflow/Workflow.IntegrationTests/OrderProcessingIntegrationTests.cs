@@ -33,8 +33,9 @@ public class OrderProcessingIntegrationTests
     public async Task ProcessOrderAsync_WithValidOrder_ReturnsSuccess()
     {
         // Arrange
-        var logger = new LoggerFactory().CreateLogger<OrderProcessor>();
-        var processor = new OrderProcessor(logger);
+        var loggerFactory = new LoggerFactory();
+        var logger = loggerFactory.CreateLogger<OrderProcessor>();
+        var processor = new OrderProcessor(logger, loggerFactory);
 
         var order = new OrderRequest
         {
@@ -62,8 +63,9 @@ public class OrderProcessingIntegrationTests
     public async Task ProcessOrderAsync_WithInvalidOrder_ReturnsValidationFailed()
     {
         // Arrange
-        var logger = new LoggerFactory().CreateLogger<OrderProcessor>();
-        var processor = new OrderProcessor(logger);
+        var loggerFactory = new LoggerFactory();
+        var logger = loggerFactory.CreateLogger<OrderProcessor>();
+        var processor = new OrderProcessor(logger, loggerFactory);
 
         var order = new OrderRequest
         {
@@ -89,8 +91,9 @@ public class OrderProcessingIntegrationTests
     public async Task ProcessOrderAsync_WithOutOfStockItem_ReturnsOutOfStock()
     {
         // Arrange
-        var logger = new LoggerFactory().CreateLogger<OrderProcessor>();
-        var processor = new OrderProcessor(logger);
+        var loggerFactory = new LoggerFactory();
+        var logger = loggerFactory.CreateLogger<OrderProcessor>();
+        var processor = new OrderProcessor(logger, loggerFactory);
 
         var order = new OrderRequest
         {
@@ -116,8 +119,9 @@ public class OrderProcessingIntegrationTests
     public async Task ProcessOrderAsync_WithLargeOrder_AppliesDiscount()
     {
         // Arrange
-        var logger = new LoggerFactory().CreateLogger<OrderProcessor>();
-        var processor = new OrderProcessor(logger);
+        var loggerFactory = new LoggerFactory();
+        var logger = loggerFactory.CreateLogger<OrderProcessor>();
+        var processor = new OrderProcessor(logger, loggerFactory);
 
         var order = new OrderRequest
         {

@@ -11,11 +11,13 @@ public class OrderController : ControllerBase
 {
     private readonly DaprClient _daprClient;
     private readonly ILogger<OrderController> _logger;
+    private readonly ILoggerFactory _loggerFactory;
 
-    public OrderController(DaprClient daprClient, ILogger<OrderController> logger)
+    public OrderController(DaprClient daprClient, ILogger<OrderController> logger, ILoggerFactory loggerFactory)
     {
         _daprClient = daprClient;
         _logger = logger;
+        _loggerFactory = loggerFactory;
     }
 
     [HttpPost]
@@ -28,7 +30,7 @@ public class OrderController : ControllerBase
 
             // In a real workflow scenario, you would start a workflow via Dapr
             // For this example, we'll process the order directly using the service
-            var processor = new OrderProcessor(_logger);
+            var processor = new OrderProcessor(_logger, _loggerFactory);
             var result = await processor.ProcessOrderAsync(request);
 
             _logger.LogInformation("Order processing completed for {OrderId} with status {Status}",
