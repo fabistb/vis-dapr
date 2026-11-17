@@ -1,0 +1,12 @@
+version: 1
+apps:
+  - appID: second
+    appDirPath: ./Second/
+    appPort: 5071
+    daprHTTPPort: 3571
+    daprGRPCPort: 53571
+    metricsPort: 9571
+    resourcesPaths:
+      - ./components
+    configFilePath: ./tracing.yaml
+    command: ["dotnet", "run"]
