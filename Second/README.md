@@ -14,3 +14,16 @@ Currently available _keyPrefix_ values:
 [Dapr Docs](https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-share-state/)
 
 In this example the application **main** sets the state while the application **second** reads the state.
+
+
+## Run
+Requires the Dapr CLI and `dapr init`.
+```sh
+cd Second
+dapr run -f .
+```
+Stop with `dapr stop -f .`.
+
+`dapr.yaml` starts the sidecar and the app (`dotnet run` with the `Second` launch profile).
+Starting the app alone (IDE or `dotnet run`) starts no sidecar, so Dapr calls and actors fail.
+To debug from the IDE, start via `dapr run -f .` and attach the debugger to the `Second` process.
