@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Second.Models;
 
@@ -16,9 +17,9 @@ public class ServiceInvocationController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Receive([FromBody] ServiceInvocationDto request)
+    public IActionResult Receive([FromBody] ServiceInvocationDto request)
     {
-        _logger.LogInformation($"Receive message: {request.Message}");
+        _logger.LogInformation("Receive message: {Message}", request.Message);
 
         return Ok();
     }

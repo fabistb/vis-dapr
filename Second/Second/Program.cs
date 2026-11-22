@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+using Asp.Versioning;
 using Second.Actors;
 using Second.Infastructure;
 using Second.Services;
@@ -22,27 +22,18 @@ builder.Services.AddActors(options =>
 builder.Services.AddApiVersioning(v =>
 {
     v.ReportApiVersions = true;
-    v.AssumeDefaultVersionWhenUnspecified = true;
+    v.ApiVersionReader = new UrlSegmentApiVersionReader();
     v.DefaultApiVersion = new ApiVersion(1, 0);
-});
-
-if (builder.Environment.IsDevelopment())
-{
-    builder.Services.AddDaprSidekick(builder.Configuration);   
-}
+}).AddMvc();
 
 // Configure the HTTP request pipeline
 var app = builder.Build();
 
-app.UseRouting();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapHealthChecks("/health");
-    endpoints.MapControllers();
-    endpoints.MapActorsHandlers();
-});
+app.MapHealthChecks("/health");
+app.MapControllers();
+app.MapActorsHandlers();
 
 app.Run();
