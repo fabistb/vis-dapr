@@ -1,0 +1,12 @@
+version: 1
+apps:
+  - appID: middleware
+    appDirPath: ./Middleware/
+    appPort: 5072
+    daprHTTPPort: 3572
+    daprGRPCPort: 53572
+    metricsPort: 9572
+    resourcesPaths:
+      - ./components
+    configFilePath: ./configuration.yaml
+    command: ["dotnet", "run"]

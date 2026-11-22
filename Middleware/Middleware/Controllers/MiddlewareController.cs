@@ -1,3 +1,5 @@
+using System.Text.Json;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Middleware.Controllers;
@@ -8,8 +10,5 @@ namespace Middleware.Controllers;
 public class MiddlewareController : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> RateLimit([FromBody] object requestBody)
-    {
-        return new OkObjectResult(requestBody);
-    }
+    public ActionResult<JsonElement> RateLimit([FromBody] JsonElement body) => Ok(body);
 }
