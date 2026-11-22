@@ -21,6 +21,6 @@ public sealed class ReleaseStockActivityTests
 
         await new ReleaseStockActivity(inventory.Object).RunAsync(_ctx, order);
 
-        inventory.Verify(i => i.Release(order.Items), Times.Once);
+        inventory.Verify(i => i.Release(order.OrderId), Times.Once);
     }
 }

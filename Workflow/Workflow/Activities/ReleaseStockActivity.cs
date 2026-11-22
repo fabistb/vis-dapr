@@ -8,7 +8,7 @@ internal sealed class ReleaseStockActivity(IInMemoryInventory inventory) : Workf
 {
     public override Task<bool> RunAsync(WorkflowActivityContext context, OrderRequest input)
     {
-        inventory.Release(input.Items);
+        inventory.Release(input.OrderId);
         return Task.FromResult(true);
     }
 }

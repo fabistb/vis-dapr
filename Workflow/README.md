@@ -10,7 +10,7 @@ This sample runs a simple order process. It shows:
 - compensation
 
 All activities run in-memory inside the app (no external services); only workflow state is stored in Redis.
-Inventory resets when the app restarts.
+Inventory is in-memory and resets on restart; reservations are idempotent per order.
 
 [Dapr Docs](https://docs.dapr.io/developing-applications/building-blocks/workflow/workflow-overview/)
 
@@ -29,7 +29,7 @@ Starting the app alone (IDE or `dotnet run`) starts no sidecar, so workflows fai
 See `Workflow/requests/workflow.http`.
 - `POST /api/v1/orders` starts an order workflow
 - `GET /api/v1/orders/{id}` returns the workflow status
-- `POST /api/v1/orders/{id}/response` accepts or declines the offer (raises an external event)
+- `POST /api/v1/orders/{id}/response` accepts or declines the offer (raises an external event); the state check is best-effort, so 202 means submitted, poll GET for the outcome
 
 Order id is the workflow instance id. Seeded products: `widget`, `gadget`, `gizmo` (stock 5), `sold-out`.
 Payment fails for customer `blocked` or totals above 10000. Orders of 100 or more get 10% off.

@@ -49,6 +49,19 @@ public sealed class FulfillmentWorkflowTests
     }
 
     [TestMethod]
+    public async Task PaymentFails_ReleaseThrows_ReleasesOnceAndRethrows()
+    {
+        Activity(nameof(ProcessPaymentActivity), new PaymentResult(false, "no money"));
+        _ctx.Setup(c => c.CallActivityAsync<bool>(nameof(ReleaseStockActivity), It.IsAny<OrderRequest>(), It.IsAny<WorkflowTaskOptions?>()))
+            .ThrowsAsync(new WorkflowTaskFailedException("failed", new WorkflowTaskFailureDetails("Error", "boom", null)));
+
+        var act = () => new FulfillmentWorkflow().RunAsync(_ctx.Object, _request);
+
+        await act.Should().ThrowAsync<WorkflowTaskFailedException>();
+        Called(nameof(ReleaseStockActivity), Times.Once());
+    }
+
+    [TestMethod]
     public async Task ShipFails_ReleasesStockAndRethrows()
     {
         Activity(nameof(ProcessPaymentActivity), new PaymentResult(true, null));

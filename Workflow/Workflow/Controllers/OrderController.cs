@@ -59,6 +59,7 @@ public class OrderController(IDaprWorkflowClient workflowClient) : ControllerBas
     public async Task<IActionResult> Respond(string id, [FromBody] OfferResponse response)
     {
         // Dapr silently drops events for unknown or finished workflows, so check first.
+        // Best-effort: the workflow can time out between check and raise; 202 means submitted, poll GET for the outcome.
         var state = await workflowClient.GetWorkflowStateAsync(id, getInputsAndOutputs: true);
         if (!state.Exists) return NotFound();
         if (state.IsWorkflowCompleted) return Conflict($"Order {id} is already {state.RuntimeStatus}");

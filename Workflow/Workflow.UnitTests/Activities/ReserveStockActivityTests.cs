@@ -21,7 +21,7 @@ public sealed class ReserveStockActivityTests
     {
         var order = _fixture.Create<OrderRequest>();
         var inventory = new Mock<IInMemoryInventory>();
-        inventory.Setup(i => i.TryReserve(order.Items)).Returns(reserved);
+        inventory.Setup(i => i.TryReserve(order.OrderId, order.Items)).Returns(reserved);
 
         var result = await new ReserveStockActivity(inventory.Object).RunAsync(_ctx, order);
 

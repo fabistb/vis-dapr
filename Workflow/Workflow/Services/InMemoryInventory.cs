@@ -14,6 +14,8 @@ public sealed class InMemoryInventory : IInMemoryInventory
             ["sold-out"] = (0, 5.00m),
         });
 
+    private readonly Dictionary<string, Dictionary<string, int>> _reservations = [];
+
     // Guards the multi-item reserve/release so an order is all-or-nothing.
     private readonly object _lock = new();
 
@@ -23,25 +25,28 @@ public sealed class InMemoryInventory : IInMemoryInventory
     public decimal? GetUnitPrice(string productId) =>
         _products.TryGetValue(productId, out var p) ? p.Price : null;
 
-    public bool TryReserve(IEnumerable<OrderItem> items)
+    public bool TryReserve(string orderId, IEnumerable<OrderItem> items)
     {
         // Sum per product so repeated lines of one product cannot oversell.
-        var totals = items.GroupBy(i => i.ProductId).Select(g => (ProductId: g.Key, Quantity: g.Sum(i => i.Quantity))).ToList();
+        var totals = items.GroupBy(i => i.ProductId).ToDictionary(g => g.Key, g => g.Sum(i => i.Quantity));
         lock (_lock)
         {
-            if (!totals.All(t => IsAvailable(t.ProductId, t.Quantity))) return false;
-            foreach (var t in totals)
-                _products[t.ProductId] = _products[t.ProductId] with { Stock = _products[t.ProductId].Stock - t.Quantity };
+            if (_reservations.ContainsKey(orderId)) return true; // replayed activity: already reserved
+            if (!totals.All(t => IsAvailable(t.Key, t.Value))) return false;
+            foreach (var (productId, quantity) in totals)
+                _products[productId] = _products[productId] with { Stock = _products[productId].Stock - quantity };
+            _reservations[orderId] = totals;
             return true;
         }
     }
 
-    public void Release(IEnumerable<OrderItem> items)
+    public void Release(string orderId)
     {
         lock (_lock)
         {
-            foreach (var i in items)
-                _products[i.ProductId] = _products[i.ProductId] with { Stock = _products[i.ProductId].Stock + i.Quantity };
+            if (!_reservations.Remove(orderId, out var totals)) return; // nothing reserved (e.g. after a restart)
+            foreach (var (productId, quantity) in totals)
+                _products[productId] = _products[productId] with { Stock = _products[productId].Stock + quantity };
         }
     }
 }

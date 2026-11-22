@@ -157,7 +157,8 @@ public sealed class OrderControllerTests
     private static object NewMetadata(string id, WorkflowRuntimeStatus status, IDaprSerializer serializer, WorkflowTaskFailureDetails? failure)
     {
         var type = typeof(WorkflowState).Assembly.GetType("Dapr.Workflow.Client.WorkflowMetadata")!;
-        var metadata = Activator.CreateInstance(type, id, nameof(OrderProcessingWorkflow), status, DateTime.UtcNow, DateTime.UtcNow, serializer)!;
+        var metadata = Activator.CreateInstance(type, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public, null,
+            [id, nameof(OrderProcessingWorkflow), status, DateTime.UtcNow, DateTime.UtcNow, serializer], null)!;
         type.GetProperty("SerializedCustomStatus")!.SetValue(metadata, "x");
         type.GetProperty("SerializedOutput")!.SetValue(metadata, "x");
         type.GetProperty("FailureDetails")!.SetValue(metadata, failure);

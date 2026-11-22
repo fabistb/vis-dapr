@@ -12,7 +12,7 @@ public sealed class InMemoryInventoryTests
     [TestMethod]
     public void TryReserve_AllInStock_ReducesStock()
     {
-        var reserved = _sut.TryReserve([new("gizmo", 5)]);
+        var reserved = _sut.TryReserve("o", [new("gizmo", 5)]);
 
         reserved.Should().BeTrue();
         _sut.IsAvailable("gizmo", 1).Should().BeFalse();
@@ -21,7 +21,7 @@ public sealed class InMemoryInventoryTests
     [TestMethod]
     public void TryReserve_OneItemShort_ReservesNothing()
     {
-        var reserved = _sut.TryReserve([new("widget", 10), new("sold-out", 1)]);
+        var reserved = _sut.TryReserve("o", [new("widget", 10), new("sold-out", 1)]);
 
         reserved.Should().BeFalse();
         _sut.IsAvailable("widget", 100).Should().BeTrue(); // untouched
@@ -30,7 +30,7 @@ public sealed class InMemoryInventoryTests
     [TestMethod]
     public void TryReserve_SameProductTwice_ChecksCombinedQuantity()
     {
-        var reserved = _sut.TryReserve([new("gizmo", 3), new("gizmo", 3)]);
+        var reserved = _sut.TryReserve("o", [new("gizmo", 3), new("gizmo", 3)]);
 
         reserved.Should().BeFalse();
         _sut.IsAvailable("gizmo", 5).Should().BeTrue(); // untouched
@@ -40,11 +40,40 @@ public sealed class InMemoryInventoryTests
     public void Release_AfterReserve_RestoresStock()
     {
         OrderItem[] items = [new("gizmo", 5)];
-        _sut.TryReserve(items);
+        _sut.TryReserve("o", items);
 
-        _sut.Release(items);
+        _sut.Release("o");
 
         _sut.IsAvailable("gizmo", 5).Should().BeTrue();
+    }
+
+    [TestMethod]
+    public void TryReserve_SameOrderTwice_DeductsOnce()
+    {
+        _sut.TryReserve("o", [new("gizmo", 2)]).Should().BeTrue();
+        _sut.TryReserve("o", [new("gizmo", 2)]).Should().BeTrue();
+
+        _sut.IsAvailable("gizmo", 3).Should().BeTrue();
+        _sut.IsAvailable("gizmo", 4).Should().BeFalse();
+    }
+
+    [TestMethod]
+    public void Release_Twice_RestoresOnce()
+    {
+        _sut.TryReserve("o", [new("gizmo", 2)]);
+        _sut.Release("o");
+        _sut.Release("o");
+
+        _sut.IsAvailable("gizmo", 5).Should().BeTrue();
+        _sut.IsAvailable("gizmo", 6).Should().BeFalse();
+    }
+
+    [TestMethod]
+    public void Release_UnknownOrder_IsNoOp()
+    {
+        _sut.Release("unknown");
+
+        _sut.IsAvailable("gizmo", 6).Should().BeFalse();
     }
 
     [TestMethod]

@@ -52,6 +52,16 @@ public sealed class ValidateOrderActivityTests
     }
 
     [TestMethod]
+    public async Task ValidateOrder_SummedQuantityOverflows_IsInvalid()
+    {
+        var order = Order(new OrderItem("widget", int.MaxValue), new OrderItem("widget", 1));
+
+        var result = await new ValidateOrderActivity().RunAsync(_ctx, order);
+
+        result.Error.Should().Be("Quantity too large");
+    }
+
+    [TestMethod]
     public async Task ValidateOrder_NonPositiveOfferTimeout_IsInvalid()
     {
         var order = Order(new OrderItem("widget", 1)) with { OfferTimeout = TimeSpan.Zero };
