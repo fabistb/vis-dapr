@@ -1,0 +1,12 @@
+version: 1
+apps:
+  - appID: workflow
+    appDirPath: ./Workflow/
+    appPort: 5073
+    daprHTTPPort: 3573
+    daprGRPCPort: 53573
+    metricsPort: 9573
+    resourcesPaths:
+      - ./components
+    configFilePath: ./tracing.yaml
+    command: ["dotnet", "run"]

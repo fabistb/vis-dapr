@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <InternalsVisibleTo Include="Workflow.UnitTests" />
+      <InternalsVisibleTo Include="Workflow.IntegrationTests" />
+      <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dapr.Workflow" Version="1.19.1" />
+      <PackageReference Include="Asp.Versioning.Mvc" Version="10.2.1" />
+    </ItemGroup>
+
+</Project>

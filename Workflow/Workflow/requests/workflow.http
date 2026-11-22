@@ -1,0 +1,82 @@
+@baseUrl = http://localhost:5073
+
+### Start a valid order (10 widgets + 1 gadget, discount applies). Waits for an offer response.
+POST {{baseUrl}}/api/v1/orders
+Content-Type: application/json
+
+{
+  "orderId": "order-1",
+  "customerId": "customer-1",
+  "items": [
+    { "productId": "widget", "quantity": 10 },
+    { "productId": "gadget", "quantity": 1 }
+  ]
+}
+
+### Get status (customStatus is AwaitingOfferResponse while waiting)
+GET {{baseUrl}}/api/v1/orders/order-1
+
+### Accept the offer
+POST {{baseUrl}}/api/v1/orders/order-1/response
+Content-Type: application/json
+
+{ "accepted": true }
+
+### Start an order and decline it
+POST {{baseUrl}}/api/v1/orders
+Content-Type: application/json
+
+{
+  "orderId": "order-2",
+  "customerId": "customer-1",
+  "items": [ { "productId": "widget", "quantity": 1 } ]
+}
+
+###
+POST {{baseUrl}}/api/v1/orders/order-2/response
+Content-Type: application/json
+
+{ "accepted": false }
+
+### Invalid order (no items) -> Rejected
+POST {{baseUrl}}/api/v1/orders
+Content-Type: application/json
+
+{ "orderId": "order-3", "customerId": "customer-1", "items": [] }
+
+### Out of stock (sold-out has no stock) -> OutOfStock
+POST {{baseUrl}}/api/v1/orders
+Content-Type: application/json
+
+{
+  "orderId": "order-4",
+  "customerId": "customer-1",
+  "items": [ { "productId": "sold-out", "quantity": 1 } ]
+}
+
+### Offer expires after 10 seconds -> Expired
+POST {{baseUrl}}/api/v1/orders
+Content-Type: application/json
+
+{
+  "orderId": "order-5",
+  "customerId": "customer-1",
+  "items": [ { "productId": "widget", "quantity": 1 } ],
+  "offerTimeout": "00:00:10"
+}
+
+### Payment fails (customerId "blocked"), accept afterwards -> PaymentFailed, stock released
+POST {{baseUrl}}/api/v1/orders
+Content-Type: application/json
+
+{
+  "orderId": "order-6",
+  "customerId": "blocked",
+  "items": [ { "productId": "widget", "quantity": 1 } ]
+}
+
+###
+POST {{baseUrl}}/api/v1/orders/order-6/response
+Content-Type: application/json
+
+{ "accepted": true }
